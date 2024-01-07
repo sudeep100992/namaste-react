@@ -6,6 +6,6 @@ download nodejs and install
  from terminal 
 
 npm init 
-
+npm
 
 

@@ -1,0 +1,33 @@
+{
+  "name": "sudeep-react",
+  "version": "1.0.0",
+  "description": "this is namaste react",
+  "main": "App.js",
+  "scripts": {
+    "test": "jest"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/sudeep100992/namaste-react.git"
+  },
+  "keywords": [
+    "test"
+  ],
+  "author": "sudeep.cheekireddy",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/sudeep100992/namaste-react/issues"
+  },
+  "homepage": "https://github.com/sudeep100992/namaste-react#readme",
+  "devDependencies": {
+    "parcel": "^2.11.0",
+    "process": "^0.11.10"
+  },
+  "dependencies": {
+    "react": "^18.2.0",
+    "react-dom": "^18.2.0"
+  },
+  "browserslist":[
+    "last 2 versions"
+  ]
+}
