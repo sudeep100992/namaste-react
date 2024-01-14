@@ -57,6 +57,12 @@
     display: flex;
     flex-wrap: wrap;
     width: auto;
+    
+}
+
+.top-rated-butn {
+    margin : 20px;
+    cursor: pointer;
 }
 
 
