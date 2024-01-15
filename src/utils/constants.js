@@ -4,4 +4,9 @@ export const CDN_URL="https://res.cloudinary.com/swiggy/image/upload/fl_lossy,f_
 export const LOGO_URL="https://img.freepik.com/free-vector/food-shopping-logo-template-design_460848-10299.jpg";
 
 
+// Swiggy API to get Restaurant data with foodfire erver
+export const swiggy_api_URL =
+"https://www.swiggy.com/dapi/restaurants/list/v5?lat=13.0623099&lng=77.6034894&is-seo-homepage-enabled=true&page_type=DESKTOP_WEB_LISTING";
+//https://corsproxy.io/?  
+
 // named export

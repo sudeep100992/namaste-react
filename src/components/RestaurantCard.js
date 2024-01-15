@@ -4,7 +4,7 @@ const RestaurantCard = (props) => {
     const {resData} = props;
     // Optional Chaining , TRICKY
     const {name,cuisines,cloudinaryImageId,  costForTwoString,
-      avgRating} = resData?.data;
+      avgRating} = resData?.info;
   
     return (
       <div className="rest-card">
