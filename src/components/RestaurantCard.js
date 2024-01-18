@@ -1,6 +1,7 @@
 import { CDN_URL } from "../utils/constants";
 
 const RestaurantCard = (props) => {
+     console.log("props : "+ props);
     const {resData} = props;
     // Optional Chaining , TRICKY
     const {name,cuisines,cloudinaryImageId,  costForTwoString,

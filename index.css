@@ -73,7 +73,8 @@
 }
 
 .shimmer-card {
-    margin: 10px;
+    /* space between 2 components */
+    margin: 10px; 
     width : 200px;
     height: 400px;
     background-color: rgba(245, 245, 245, 0.788);

@@ -3,6 +3,7 @@ import mockRestaurantList from "../utils/mockData";
 import { useEffect, useState } from "react";
 import { swiggy_api_URL } from "../utils/constants";
 import Shimmer from "./Shimmer";
+import { Link } from "react-router-dom";
 
 const BodyComponent = () => {
   // special local state variables created from useState Hook methods
@@ -10,9 +11,8 @@ const BodyComponent = () => {
   // save a copy of the api rest list and render only once after shimmer effect and do not change(cache it)
   const [restaurantList, setRestaurantList] = useState([]);
   // change only filter list state based on the input box text and search.
-  const [ filteredRestaurantList, setFilteredRestaurantList ] = useState([]);
+  const [filteredRestaurantList, setFilteredRestaurantList] = useState([]);
   const [searchText, setSearchText] = useState("");
-  
 
   console.log("Body rendered");
 
@@ -35,6 +35,7 @@ const BodyComponent = () => {
   const fetchData = async () => {
     const data = await fetch(swiggy_api_URL);
     const json = await data.json();
+
     console.log(
       json.data.cards[4].card.card.gridElements.infoWithStyle.restaurants
     );
@@ -42,7 +43,7 @@ const BodyComponent = () => {
     const restaurantList =
       json?.data?.cards[4]?.card?.card?.gridElements?.infoWithStyle
         ?.restaurants;
-    
+
     setRestaurantList(restaurantList);
     setFilteredRestaurantList(restaurantList);
   };
@@ -72,12 +73,14 @@ const BodyComponent = () => {
           <button
             onClick={() => {
               console.log(searchText);
-              
+
               // filter the restaurant cards and update on the UI
-              const filteredRest = restaurantList.filter((restaurant) => 
-                 restaurant.info.name.toLowerCase().includes(searchText.toLowerCase())
+              const filteredRest = restaurantList.filter((restaurant) =>
+                restaurant.info.name
+                  .toLowerCase()
+                  .includes(searchText.toLowerCase())
               );
-              console.log("filtered rest list ")
+              console.log("filtered rest list ");
               console.log(filteredRest);
               setFilteredRestaurantList(filteredRest);
             }}
@@ -100,8 +103,17 @@ const BodyComponent = () => {
         </button>
       </div>
       <div className="rest-card-holders">
-        {filteredRestaurantList.map((restaurant, index) => {
-          return <RestaurantCard key={index} resData={restaurant} />;
+        {filteredRestaurantList.map((restaurant) => {
+          return (
+            <Link
+              key={restaurant.info.id}
+              to={"/restaurants/" + restaurant.info.id}
+            >
+              {/* {"key needs to on parent jsx i.e Link 
+                   return statement need to followed by ( brackets for jsx expressions "} */}
+              <RestaurantCard resData={restaurant} />
+            </Link>
+          );
         })}
       </div>
     </div>
