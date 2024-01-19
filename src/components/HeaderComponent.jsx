@@ -13,7 +13,7 @@ const HeaderComponent = () => {
 
   // useEffect call back function is invoked everytime loginButton state changes
   useEffect(() => {
-    console.log("useEffect called");
+    console.log("useEffect called in Header Component");
   }, [loginButton]);
 
   return (
