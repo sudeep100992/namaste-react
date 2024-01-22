@@ -1,6 +1,6 @@
-import { useEffect, useState } from "react";
+
 import Shimmer from "./Shimmer";
-import { swiggy_api_menu_list_URL } from "../utils/constants";
+import useRestaurantMenu from "../utils/useRestaurantMenu";
 import { useParams } from "react-router-dom";
 
 
@@ -8,7 +8,6 @@ import { useParams } from "react-router-dom";
 
 
 const RestaurantMenu = ()=> {
-    const [restMenuInfo, setRestMenuInfo]= useState(null);
 
     //const params = useParams();
     const params = useParams();  // destruction
@@ -16,21 +15,11 @@ const RestaurantMenu = ()=> {
 
     const {resId} = useParams();  // destruction
     
+    // Custome hook to fetch the data and manage the state. 
+    // create in utils
+    const restMenuInfo  = useRestaurantMenu(resId);
 
-    useEffect( ()=>{
-        fetchMenu();
-    },[]);
 
-    const fetchMenu = async  () => {
-       const data = await fetch(swiggy_api_menu_list_URL + resId);
-        const json =  await data.json();
-
-        console.log(json.data.cards[2].groupedCard.cardGroupMap.REGULAR.cards);
-        // for shimmer effect - useState
-        setRestMenuInfo(json.data);
-    }
-    
-    
     if(restMenuInfo===null){
         return <Shimmer />;
     }

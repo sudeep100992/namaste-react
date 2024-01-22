@@ -4,6 +4,7 @@ import { useEffect, useState } from "react";
 import { swiggy_api_URL } from "../utils/constants";
 import Shimmer from "./Shimmer";
 import { Link } from "react-router-dom";
+import useOnlineStatus from "../utils/useOnlineStatus";
 
 const BodyComponent = () => {
   // special local state variables created from useState Hook methods
@@ -13,6 +14,8 @@ const BodyComponent = () => {
   // change only filter list state based on the input box text and search.
   const [filteredRestaurantList, setFilteredRestaurantList] = useState([]);
   const [searchText, setSearchText] = useState("");
+
+  const onlineStatus = useOnlineStatus();
 
   console.log("Body rendered");
 
@@ -47,6 +50,10 @@ const BodyComponent = () => {
     setRestaurantList(restaurantList);
     setFilteredRestaurantList(restaurantList);
   };
+
+  if (onlineStatus=== false){
+    return  (<h1> check your internet connection </h1>)
+  }
 
   // conditional rendering..
   if (restaurantList.length === 0) {
