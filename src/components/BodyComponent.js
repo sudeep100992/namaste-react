@@ -64,11 +64,11 @@ const BodyComponent = () => {
     <Shimmer />
   ) : (
     <div className="body">
-      <div className="filter">
-        <div className="search">
+      <div className="filter flex">
+        <div className="search m-4 p-4">
           <input
             type="text"
-            className="search-box"
+            className="search-box border border-solid border-black"
             value={searchText}
             //Body render when each letter is typed in the search box
             // e-> event listener object from text box
@@ -78,6 +78,7 @@ const BodyComponent = () => {
           ></input>
 
           <button
+          className="px-4 py-2 bg-green-100 m-4 rounded-lg"
             onClick={() => {
               console.log(searchText);
 
@@ -95,8 +96,9 @@ const BodyComponent = () => {
             Search
           </button>
         </div>
+        <div className="search m-4 p-4 flex items-center">
         <button
-          className="top-rated-butn"
+          className="top-rated-butn px-4 py-2 bg-gray-100 rounded-lg"
           //  call back function to be invoked
           onClick={() => {
             const filteredRestaurants = restaurantList.filter(
@@ -108,8 +110,9 @@ const BodyComponent = () => {
         >
           Top Rated Restaurants
         </button>
+        </div>
       </div>
-      <div className="rest-card-holders">
+      <div className="rest-card-holders flex flex-wrap">
         {filteredRestaurantList.map((restaurant) => {
           return (
             <Link

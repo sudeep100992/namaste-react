@@ -1,0 +1,6 @@
+//PARCEL USE POSTCSSRC to UNDERSTAND TAILWIND 
+{
+  "plugins": {
+    "tailwindcss": {}
+  }
+}
