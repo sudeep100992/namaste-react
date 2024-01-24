@@ -1,10 +1,11 @@
-import RestaurantCard from "./RestaurantCard";
+import RestaurantCard, { withPromotedLabel } from "./RestaurantCard";
 import mockRestaurantList from "../utils/mockData";
-import { useEffect, useState } from "react";
+import { useEffect, useState , useContext} from "react";
 import { swiggy_api_URL } from "../utils/constants";
 import Shimmer from "./Shimmer";
 import { Link } from "react-router-dom";
 import useOnlineStatus from "../utils/useOnlineStatus";
+import UserContext from "../utils/UserContext";
 
 const BodyComponent = () => {
   // special local state variables created from useState Hook methods
@@ -14,6 +15,11 @@ const BodyComponent = () => {
   // change only filter list state based on the input box text and search.
   const [filteredRestaurantList, setFilteredRestaurantList] = useState([]);
   const [searchText, setSearchText] = useState("");
+
+  // Higher Order component
+  const RestaurantCardPromoted = withPromotedLabel(RestaurantCard);
+  //  debugger;
+  //console.log("restaurantList" , restaurantList)
 
   const onlineStatus = useOnlineStatus();
 
@@ -35,6 +41,8 @@ const BodyComponent = () => {
     fetchData();
   }, []);
 
+  
+
   const fetchData = async () => {
     const data = await fetch(swiggy_api_URL);
     const json = await data.json();
@@ -51,9 +59,11 @@ const BodyComponent = () => {
     setFilteredRestaurantList(restaurantList);
   };
 
-  if (onlineStatus=== false){
-    return  (<h1> check your internet connection </h1>)
+  if (onlineStatus === false) {
+    return <h1> check your internet connection </h1>;
   }
+
+  const { loggedInUser, setUserName } = useContext(UserContext);
 
   // conditional rendering..
   if (restaurantList.length === 0) {
@@ -78,7 +88,7 @@ const BodyComponent = () => {
           ></input>
 
           <button
-          className="px-4 py-2 bg-green-100 m-4 rounded-lg"
+            className="px-4 py-2 bg-green-100 m-4 rounded-lg"
             onClick={() => {
               console.log(searchText);
 
@@ -95,21 +105,30 @@ const BodyComponent = () => {
           >
             Search
           </button>
+          
         </div>
         <div className="search m-4 p-4 flex items-center">
-        <button
-          className="top-rated-butn px-4 py-2 bg-gray-100 rounded-lg"
-          //  call back function to be invoked
-          onClick={() => {
-            const filteredRestaurants = restaurantList.filter(
-              (restaurant) => restaurant.info.avgRating >= 4.5
-            );
-            setFilteredRestaurantList(filteredRestaurants);
-            //console.log("clicked");
-          }}
-        >
-          Top Rated Restaurants
-        </button>
+          <button
+            className="top-rated-butn px-4 py-2 bg-gray-100 rounded-lg"
+            //  call back function to be invoked
+            onClick={() => {
+              const filteredRestaurants = restaurantList.filter(
+                (restaurant) => restaurant.info.avgRating >= 4.5
+              );
+              setFilteredRestaurantList(filteredRestaurants);
+              //console.log("clicked");
+            }}
+          >
+            Top Rated Restaurants
+          </button>
+        </div>
+        <div className="search m-4 p-4 flex items-center">
+          <label>UserName : </label>
+          <input
+            className="border border-black p-2"
+            value={loggedInUser}
+            onChange={(e) => setUserName(e.target.value)}
+          />
         </div>
       </div>
       <div className="rest-card-holders flex flex-wrap">
@@ -121,7 +140,12 @@ const BodyComponent = () => {
             >
               {/* {"key needs to on parent jsx i.e Link 
                    return statement need to followed by ( brackets for jsx expressions "} */}
-              <RestaurantCard resData={restaurant} />
+
+              {restaurant.info.avgRating > 4.5 ? (
+                <RestaurantCardPromoted resData={restaurant} />
+              ) : (
+                <RestaurantCard resData={restaurant} />
+              )}
             </Link>
           );
         })}

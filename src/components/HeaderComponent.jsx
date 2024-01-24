@@ -1,9 +1,10 @@
 import BodyComponent from "./BodyComponent";
 
 import { LOGO_URL } from "../utils/constants";
-import { useEffect, useState } from "react";
+import { useEffect, useState,useContext } from "react";
 import { Link } from "react-router-dom";
 import useOnlineStatus from "../utils/useOnlineStatus";
+import UserContext from "../utils/UserContext";
 // img there is no end tag
 // Components are just JS functione where we can repeat many times.
 const HeaderComponent = () => {
@@ -12,6 +13,10 @@ const HeaderComponent = () => {
   console.log(
     "HEader rendered , for every state variable changed whole header component is rendered again"
   );
+
+
+  const { loggedInUser } = useContext(UserContext);
+  console.log(loggedInUser);
 
   // useEffect call back function is invoked everytime loginButton state changes
   useEffect(() => {
@@ -41,6 +46,7 @@ const HeaderComponent = () => {
             <a href="/Contact"> Contact </a>
           </li>
           <li className="px-4"> Cart </li>
+          <li className="px-4 font-bold">{loggedInUser}</li>
           <button
             className="btn-login"
             onClick={() => {
